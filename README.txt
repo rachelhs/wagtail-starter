@@ -1,3 +1,6 @@
+To install requirements
+- pip3 install -r requirements.txt
+
 To activate local enviroment
 - source wagtail_env/bin/activate
 
