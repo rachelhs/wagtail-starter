@@ -23,7 +23,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">{{ self.title }}</a>
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">{{ page.title }}</a>
             <button
                 class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
                 type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -50,9 +50,9 @@
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
-            {% image self.cover max-300x300 class="masthead-avatar" %}
+            {% image page.cover max-300x300 class="masthead-avatar" %}
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">{{ self.project_name }}</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">{{ page.project_name }}</h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -60,7 +60,7 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-light mb-0">{{ self.project_tagline }}</p>
+            <p class="masthead-subheading font-weight-light mb-0">{{ page.project_tagline }}</p>
         </div>
     </header>
 
@@ -78,10 +78,10 @@
             <!-- About Section Content-->
             <div class="row">
                 <div class="col-lg-4 ml-auto">
-                    <p class="lead">{{ self.about_text_left }}</p>
+                    <p class="lead">{{ page.about_text_left }}</p>
                 </div>
                 <div class="col-lg-4 mr-auto">
-                    <p class="lead">{{ self.about_text_right }}</p>
+                    <p class="lead">{{ page.about_text_right }}</p>
                 </div>
             </div>
         </div>
@@ -101,13 +101,10 @@
             <!-- About Section Content-->
             <div class="row">
                 <div class="col-lg-4 ml-auto">
-                    <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download
-                        includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS
-                        stylesheets for easy customization.</p>
+                    <p class="lead">{{ page.team_text_left }}</p>
                 </div>
                 <div class="col-lg-4 mr-auto">
-                    <p class="lead">You can create your own custom avatar for the masthead, change the icon in the
-                        dividers, and add your email address to the contact form to make it fully functional!</p>
+                    <p class="lead">{{ page.team_text_right }}</p>
                 </div>
             </div>
         </div>
@@ -199,6 +196,22 @@
     <!-- Contact Section-->
     <section class="page-section" id="contact">
         <div class="container">
+            <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            {% for contact in page.get_children %}
+            {% if contact.specific.intro %}
+            <p>{{ contact.specific.title }}</p>
+            <p>{{ contact.specific.intro|richtext }}</p>
+            <input type="text" placeholder="name">
+            <input type="text" placeholder="e-mail">
+            <input type="text" placeholder="message">
+            <input type="submit">
+            {% endif %}
+            {% endfor %}
+        </form>
+
+
+
             <!-- Contact Section Heading-->
             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
             <!-- Icon Divider-->

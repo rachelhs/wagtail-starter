@@ -17,11 +17,15 @@ class HomePage(Page):
     )
     about_text_left = models.CharField(max_length=500, blank=True,)
     about_text_right = models.CharField(max_length=500, blank=True,)
+    team_text_left = models.CharField(max_length=500, blank=True,)
+    team_text_right = models.CharField(max_length=500, blank=True,)
 
     content_panels = Page.content_panels + [
         FieldPanel('project_name', classname="full"),
-        FieldPanel('project_tagline'),
+        FieldPanel('project_tagline', classname="full"),
         ImageChooserPanel('cover'),
-        FieldPanel('about_text_left'),
-        FieldPanel('about_text_right'),
+        FieldPanel('about_text_left', classname="full"),
+        FieldPanel('about_text_right', classname="full"),
+        FieldPanel('team_text_left', classname="full"),
+        FieldPanel('team_text_right', classname="full"),
     ]
