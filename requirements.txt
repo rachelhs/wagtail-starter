@@ -21,6 +21,7 @@ markdown2==2.3.10
 openpyxl==3.0.5
 Pillow==8.1.0
 psycopg2-binary==2.8.6
+python-decouple==3.4
 pytz==2020.5
 requests==2.25.1
 six==1.15.0

@@ -196,21 +196,6 @@
     <!-- Contact Section-->
     <section class="page-section" id="contact">
         <div class="container">
-            <form action="{% pageurl page %}" method="POST">
-            {% csrf_token %}
-            {% for contact in page.get_children %}
-            {% if contact.specific.intro %}
-            <p>{{ contact.specific.title }}</p>
-            <p>{{ contact.specific.intro|richtext }}</p>
-            <input type="text" placeholder="name">
-            <input type="text" placeholder="e-mail">
-            <input type="text" placeholder="message">
-            <input type="submit">
-            {% endif %}
-            {% endfor %}
-        </form>
-
-
 
             <!-- Contact Section Heading-->
             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
