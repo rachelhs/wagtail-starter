@@ -11,6 +11,7 @@ from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from modelcluster.fields import ParentalKey
 
 class HomePage(Page):
+
     project_name = models.CharField(max_length=255, blank=True,)
     project_tagline = models.CharField(max_length=255, blank=True,)
     cover = models.ForeignKey(
