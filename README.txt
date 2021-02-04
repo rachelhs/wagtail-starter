@@ -43,3 +43,6 @@ Need to do a hard reload to see css changes (ctrl + F5 in browserr)
 ##############################################################################################
 
 Square image as title image
+
+##############################################################################################
+Site based on Freelancer, a free to use, MIT licensed Bootstrap theme created by Start Bootstrap

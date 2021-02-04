@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.utils.translation import gettext_lazy as _
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -27,10 +29,11 @@ INSTALLED_APPS = [
     'home',
     'search',
     'blog',
-    'contact',
-    
+        
     'wagtail.contrib.routable_page',
     'wagtail.contrib.forms',
+    'wagtail.contrib.modeladmin',
+    'wagtailstreamforms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
@@ -176,3 +179,9 @@ RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_SECRET_KEY')
 
 # Nocaptcha needs to be true to work
 NOCAPTCHA = True
+
+WAGTAILSTREAMFORMS_FORM_TEMPLATES = (
+    ('streamforms/form_block.html', _("Default Form Template")),  # default
+)
+
+WAGTAILSTREAMFORMS_ADVANCED_SETTINGS_MODEL = 'home.AdvancedFormSetting'

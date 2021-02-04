@@ -197,7 +197,7 @@
     <section class="page-section bg-primary text-white mb-0" id="contact">
         <div class="container">
             <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Contact Me</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Contact</h2>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -206,10 +206,34 @@
             </div>
             <div class="row">
                 <div style="margin: 0 auto;">
-                <h1 class="lead">Get in contact with us at person@example.co.uk</h1>
-            </div>
+                    <h1 class="lead">{{ page.contact_text }}</h1>
+                </div>
             </div>
         </div>
+
+        <h2>{{ value.form.title }}</h2>
+        <form{% if form.is_multipart %} enctype="multipart/form-data" {% endif %} action="{{ value.form_action }}"
+            method="post" novalidate>
+            {{ form.media }}
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+            {% for field in form.visible_fields %}
+            {% include 'streamforms/partials/form_field.html' %}
+            {% endfor %}
+            <input type="submit" value="SUBMIT">
+            </form>
+
+            {% for block in page.contact_body %}
+            {% include_block block %}
+            {% endfor %}
+
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
     </section>
 
     <!-- Footer-->
@@ -220,9 +244,9 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Location</h4>
                     <p class="lead mb-0">
-                        2215 John Daniel Drive
+                        {{ page.first_line_location }}
                         <br />
-                        Clark, MO 65243
+                        {{ page.second_line_location }}
                     </p>
                 </div>
                 <!-- Footer Social Icons-->
@@ -237,11 +261,13 @@
                 </div>
                 <!-- Footer About Text-->
                 <div class="col-lg-4">
-                    <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                    <h4 class="text-uppercase mb-4">About This Site</h4>
                     <p class="lead mb-0">
-                        Freelance is a free to use, MIT licensed Bootstrap theme created by
-                        <a href="http://startbootstrap.com">Start Bootstrap</a>
-                        .
+                        <a href='#'>Cookies</a>
+                        <br />
+                        <a href='#'>Terms and Conditions</a>
+                        <br />
+                        <a href='#'>Accessibility</a>
                     </p>
                 </div>
             </div>
