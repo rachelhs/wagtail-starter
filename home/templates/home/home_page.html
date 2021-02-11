@@ -1,5 +1,6 @@
 {% load static wagtailcore_tags wagtailimages_tags blogapp_tags markdown_deux_tags %}
 <link href="{% static 'home/css/styles.css' %}" rel="stylesheet">
+<link href="{% static 'home/css/extrastyles.css' %}" rel="stylesheet">
 
 {% block content %}
 
@@ -197,7 +198,10 @@
     <section class="page-section bg-primary text-white mb-0" id="contact">
         <div class="container">
             <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white mb-0">{{ page.contact_body.contactTitle }}</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-white mb-0">
+                {% for block in page.contact_body %}
+                {{ block.value.form }}
+                {% endfor %}</h2>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -205,32 +209,23 @@
                 <div class="divider-custom-line"></div>
             </div>
             <div class="row">
-                <div style="margin: 0 auto;">
-                    <h1 class="lead">{{ page.contact_text }}</h1>
+                <div class="col-lg-8 mx-auto">
+                    <div class="remove-title">
+                        <form{% if form.is_multipart %} enctype="multipart/form-data" {% endif %}
+                            action="{{ value.form_action }}" method="post" novalidate>
+                            {% csrf_token %}
+                            </form>
+
+                            {% for block in page.contact_body %}
+                            {% include_block block %}
+                            {% endfor %}
+                    </div>
                 </div>
+
             </div>
         </div>
-        <form{% if form.is_multipart %} enctype="multipart/form-data" {% endif %} action="{{ value.form_action }}"
-            method="post" novalidate>
-            {{ form.media }}
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
-            {% for field in form.visible_fields %}
-            {% include 'streamforms/partials/form_field.html' %}
-            {% endfor %}
-            </form>
 
-            {% for block in page.contact_body %}
-                {% include_block block %}
-            {% endfor %}
 
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                    {% endfor %}
-            </ul>
-            {% endif %}
     </section>
 
     <!-- Footer-->
