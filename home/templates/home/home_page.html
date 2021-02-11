@@ -197,7 +197,7 @@
     <section class="page-section bg-primary text-white mb-0" id="contact">
         <div class="container">
             <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Contact</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-white mb-0">{{ page.contact_body.contactTitle }}</h2>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -210,8 +210,6 @@
                 </div>
             </div>
         </div>
-
-        <h2>{{ value.form.title }}</h2>
         <form{% if form.is_multipart %} enctype="multipart/form-data" {% endif %} action="{{ value.form_action }}"
             method="post" novalidate>
             {{ form.media }}
@@ -220,11 +218,10 @@
             {% for field in form.visible_fields %}
             {% include 'streamforms/partials/form_field.html' %}
             {% endfor %}
-            <input type="submit" value="SUBMIT">
             </form>
 
             {% for block in page.contact_body %}
-            {% include_block block %}
+                {% include_block block %}
             {% endfor %}
 
             {% if messages %}

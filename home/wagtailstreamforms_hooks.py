@@ -4,6 +4,21 @@ from django.template.defaultfilters import pluralize
 
 from wagtailstreamforms.hooks import register
 
+import smtplib, ssl
+
+from decouple import config
+
+port = 465  # For SSL
+smtp_server = "smtp.gmail.com"
+sender_email = "rachel.development@gmail.com"  # Enter your address
+receiver_email = "rachelsmith400@hotmail.co.uk"  # Enter receiver address
+password = config('EMAIL_PASSWORD')
+message = """\
+Subject: Hi there
+This message is sent from Python."""
+
+context = ssl.create_default_context()
+
 @register('process_form_submission')
 def email_submission(instance, form):
     """ Send an email with the submission. """
@@ -37,4 +52,8 @@ def email_submission(instance, form):
             email.attach(file.name, file.read(), file.content_type)
 
     # finally send the email
-    email.send(fail_silently=True)
+    #email.send(fail_silently=True)
+
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, addresses, content)

@@ -33,7 +33,6 @@ class HomePage(Page):
     second_line_location = models.CharField(max_length=255, blank=True,)
 
     contact_body = StreamField([
-        ('paragraph', blocks.RichTextBlock()),
         ('form', WagtailFormBlock()),
     ])
 
